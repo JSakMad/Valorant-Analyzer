@@ -1,3 +1,5 @@
+// Footer.js
+// Footer component at the bottom of each page that displays a simple message about Riot Games and copyright to the user.
 import React from 'react';
 
 const Footer = () => {

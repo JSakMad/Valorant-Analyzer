@@ -1,3 +1,5 @@
+// Index.js
+// The index.js file is the entry point for the application. It renders the App component to the DOM using ReactDOM. The App component contains the routing logic for the application, which is defined using the Routes and Route components from react-router-dom.
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';

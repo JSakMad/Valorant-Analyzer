@@ -1,4 +1,5 @@
 // app.js
+// Main component that contains the header, content, and footer components. It also contains the routing logic for the application.
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -8,6 +9,8 @@ import Footer from './components/Footer';
 import Test from './components/Test';
 import Roster from './components/Roster';
 import Stats from './components/Stats';
+import PrivacyPolicy from './components/Privacy-Policy';
+import ToS from './components/ToS';
 
 const App = () => {
   return (
@@ -19,6 +22,8 @@ const App = () => {
           <Route path="/roster" element={<Roster />} />
           <Route path="/test" element={<Test />} />
           <Route path="/stats" element={<Stats />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/tos" element={<ToS />} />
         </Routes>
         <Footer />
       </div>

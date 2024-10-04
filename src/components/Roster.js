@@ -1,4 +1,5 @@
 // Roster.js
+// Test data right now, will be replaced with actual data from the Riot API.
 import React from 'react';
 
 const Roster = () => {

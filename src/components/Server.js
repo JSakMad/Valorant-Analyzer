@@ -1,4 +1,5 @@
-// server.js
+// Server.js
+// Server-side code that exchanges the authorization code for an access token and makes authenticated requests to Riot's API.
 const express = require('express');
 const axios = require('axios');
 const app = express();

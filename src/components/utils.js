@@ -1,4 +1,5 @@
 // utils.js
+// Utility functions for the Stats component.
 export const rankValues = {
     'Iron 1': 1,
     'Iron 2': 2,

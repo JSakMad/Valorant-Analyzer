@@ -1,4 +1,5 @@
 // Test.js
+// Test component that fetches game content from the Riot API and displays it on the page.
 import React, { useState, useEffect } from 'react';
 
 const Test = () => {

@@ -1,4 +1,5 @@
-// header.js
+// Header.js
+// Header of the website found at the top of every page that contains the site's title, navigation links, and a button to sign into Riot's API.
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +20,8 @@ const Header = () => {
         <Link to="/roster">Roster</Link>
         <Link to="/test">Test</Link>
         <Link to="/stats">Stats</Link>
+        <Link to="/privacy-policy">Privacy Policy</Link>
+        <Link to="/tos">Terms of Service</Link>
         <button onClick={handleLogin} className="login-button">Sign into Riot</button>
       </nav>
     </header>
