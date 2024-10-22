@@ -8,19 +8,19 @@ const Header = () => {
   useEffect(() => {
     // Check if the user is already logged in by looking for a token in localStorage
     const token = localStorage.getItem('riot_token');
-    console.log('Token in localStorage:', token); // Log the token
+    console.log('Token in localStorage:', token);  // Log the token for debugging
     if (token) {
       setIsLoggedIn(true);
     }
   }, []);
 
   const handleLogin = () => {
-    const clientId = process.env.REACT_APP_CLIENT_ID; // Load client ID from environment variable
-    const redirectUri = 'https://jsakmad.github.io/Valorant-Analyzer'; // Ensure this matches your registered redirect URI
+    const clientId = process.env.REACT_APP_CLIENT_ID;
+    const redirectUri = 'https://jsakmad.github.io/Valorant-Analyzer/callback';  // Updated to /callback
     const authUrl = `https://auth.riotgames.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid+offline_access`;
-
+  
     window.location.href = authUrl;
-  };
+  };  
 
   const handleLogout = () => {
     // Clear the token from localStorage and update the state

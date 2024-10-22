@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -11,7 +10,7 @@ import Stats from './components/Stats';
 import PrivacyPolicy from './components/Privacy-Policy';
 import ToS from './components/ToS';
 import MatchHistory from './components/MatchHistory';
-import Callback from './components/Callback'; // Import the new Callback component
+import Callback from './components/Callback';
 
 const App = () => {
   return (
