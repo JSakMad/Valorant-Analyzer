@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Valorant-Analyzer/static/css/main.207da19b.css",
-    "main.js": "/Valorant-Analyzer/static/js/main.7ffafc86.js",
+    "main.js": "/Valorant-Analyzer/static/js/main.73c83cfb.js",
     "static/js/453.348df169.chunk.js": "/Valorant-Analyzer/static/js/453.348df169.chunk.js",
     "index.html": "/Valorant-Analyzer/index.html",
     "main.207da19b.css.map": "/Valorant-Analyzer/static/css/main.207da19b.css.map",
-    "main.7ffafc86.js.map": "/Valorant-Analyzer/static/js/main.7ffafc86.js.map",
+    "main.73c83cfb.js.map": "/Valorant-Analyzer/static/js/main.73c83cfb.js.map",
     "453.348df169.chunk.js.map": "/Valorant-Analyzer/static/js/453.348df169.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.207da19b.css",
-    "static/js/main.7ffafc86.js"
+    "static/js/main.73c83cfb.js"
   ]
 }
