@@ -26,3 +26,4 @@ yarn-error.log*
 
 # sensitive info
 .env
+notes

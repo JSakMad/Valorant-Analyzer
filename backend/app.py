@@ -1,50 +1,69 @@
+from flask import Flask, request, jsonify, redirect, session
 import requests
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
+import base64
 import os
+from dotenv import load_dotenv
+from flask_cors import CORS
 
-app = Flask(__name__, static_folder='build')
-CORS(app)
+# Load environment variables from .env file
+load_dotenv()
 
-@app.route('/exchange_code', methods=['POST'])
-def exchange_code():
-    data = request.get_json()
-    code = data['code']
-    redirect_uri = data['redirect_uri']
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+app.secret_key = os.getenv('SECRET_KEY')  # Set the secret key from the environment variable
 
-    # Exchange the authorization code for an access token
-    token_url = "https://auth.riotgames.com/token"
-    payload = {
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': redirect_uri,
-        'client_id': os.getenv('RIOT_CLIENT_ID'),
-        'client_secret': os.getenv('RIOT_CLIENT_SECRET'),
-    }
+client_id = os.getenv('RIOT_CLIENT_ID')
+client_secret = os.getenv('RIOT_CLIENT_SECRET')
+callback_uri = os.getenv('CALLBACK_URI')  # Use the new ngrok URL for callback
+authorize_url = 'https://auth.riotgames.com/authorize'
+token_url = 'https://auth.riotgames.com/token'
 
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
+if not all([client_id, client_secret, callback_uri]):
+    raise Exception('Missing necessary environment variables. Please check your .env file.')
 
-    response = requests.post(token_url, data=payload, headers=headers)
-
-    if response.status_code == 200:
-        token_data = response.json()
-        access_token = token_data.get('access_token')
-        return jsonify({'access_token': access_token})
-    else:
-        return jsonify({'error': 'Failed to exchange code for tokens'}), 400
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204  # No Content response
 
 @app.route('/')
-def serve():
-    return send_from_directory(app.static_folder, 'index.html')
+def home():
+    return '<a href="/login">Sign In with Riot</a>'
 
-@app.route('/<path:path>')
-def static_proxy(path):
-    if path.startswith('static/') or path in ['favicon.ico', 'manifest.json']:
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+@app.route('/login')
+def login():
+    print(f"Redirecting to Riot for authorization: {authorize_url}?response_type=code&client_id={client_id}&redirect_uri={callback_uri}&scope=openid")
+    return redirect(f'{authorize_url}?response_type=code&client_id={client_id}&redirect_uri={callback_uri}&scope=openid')
+
+@app.route('/callback')
+def callback():
+    code = request.args.get('code')
+    if not code:
+        return 'No authorization code found', 400
+
+    # Exchange authorization code for tokens
+    auth_header = base64.b64encode(f'{client_id}:{client_secret}'.encode()).decode()
+    token_response = requests.post(token_url, headers={
+        'Authorization': f'Basic {auth_header}',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }, data={
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': callback_uri
+    })
+
+    if token_response.status_code != 200:
+        print(f'Token exchange failed: {token_response.text}')
+        return 'Token exchange failed. Please try again later.', 500
+
+    tokens = token_response.json()
+    access_token = tokens.get('access_token')
+    refresh_token = tokens.get('refresh_token')
+
+
+    # After token exchange, redirect to frontend (GitHub Pages)
+    frontend_redirect_url = f'https://jsakmad.github.io/Valorant-Analyzer/callback?access_token={access_token}'
+    return redirect(frontend_redirect_url)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
