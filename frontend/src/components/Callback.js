@@ -1,3 +1,4 @@
+// callback.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,14 +7,15 @@ const Callback = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const accessToken = urlParams.get('access_token');  // Capture the access_token from the URL
+    const accessCode = urlParams.get('code');
 
-    if (accessToken) {
-      console.log('Access token received:', accessToken);
-      localStorage.setItem('riot_token', accessToken);  // Store the token in localStorage
-      navigate('/');  // Redirect to the homepage after storing the token
+    if (accessCode) {
+      // Store access code or token in localStorage (use actual token once it's retrieved in a secure way)
+      localStorage.setItem('riot_access_code', accessCode);
+      console.log('Access code received:', accessCode);
+      navigate('/'); // Redirect to the homepage after storing the token
     } else {
-      console.error('No access token found in URL');
+      console.error('No access code found in URL');
     }
   }, [navigate]);
 

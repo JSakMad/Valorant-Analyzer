@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = ({ isLoggedIn, onSignOut }) => {
-  const baseUrl = process.env.REACT_APP_API_URL;  // No trailing slash
+  const baseUrl = process.env.REACT_APP_API_URL;
 
   return (
     <header>
@@ -18,7 +18,7 @@ const Header = ({ isLoggedIn, onSignOut }) => {
           {isLoggedIn ? (
             <li><button onClick={onSignOut}>Sign Out</button></li>
           ) : (
-            <li><a href={`${baseUrl}/login`}>Sign In</a></li>  // Correct login URL
+            <li><a href={`${baseUrl}/login`}>Sign In</a></li>
           )}
         </ul>
       </nav>
